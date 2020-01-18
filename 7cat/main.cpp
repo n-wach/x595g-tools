@@ -16,7 +16,16 @@ int main(int argc, char** argv) {
         int read = inf.gcount();
         int processed = (read * 8) / 7;
 
-        std::bitset<56> bits(std::string(buf), 0, 56);
+        std::bitset<56> bits;
+        for (int i = 0; i < 8; i++) {
+            char c = buf[i];
+            int of = i * 8;
+            for (int bt = 0; bt < 8; bt++) {
+                bits[of++] = c & 1;
+                c >>= 1;
+            }
+        }
+        
         for (int i = 0; i < processed; i++) {
             dec[i] =
                 bits[i*7 +6] << 6
