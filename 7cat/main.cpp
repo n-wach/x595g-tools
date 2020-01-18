@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <bitset>
 
 int main(int argc, char** argv) {
     if (argc < 1) {
@@ -28,10 +29,20 @@ int main(int argc, char** argv) {
         dec[6] = (buf[5] & 0b111111) | (buf[6] >> 7);
         dec[7] = (buf[6] & 0b1111111);
 
+        for (int i = 0; i < read; i++) {
+            std::bitset<8> bin(buf[i]);
+            std::cout << "i " << bin << " ";
+        }
+        std::cout << std::endl;
+
         // dump decoded bytes
         for (int i = 0; i < processed; i++) {
-            std::cout << dec[i];
+            std::bitset<8> bin(dec[i]);
+            std::cout << "o " << bin << " ";
+            // std::cout << dec[i];
         }
+        std::cout << std::endl;
+
         std::cout << std::flush;
     }
 }
