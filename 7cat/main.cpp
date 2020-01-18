@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
         // std::cout << "read " << read << " bytes" << std::endl;
         // std::cout << "proc " << processed << " bytes" << std::endl;
 
-        dec[0] = (buf[0] & 0b11111110) >> 1;
+        dec[0] = ((buf[0] & 0b11111110) >> 1);
         dec[1] = ((buf[0] & 0b00000001) << 6) | (buf[1] & 0b11111100) >> 2;
         dec[2] = ((buf[1] & 0b00000011) << 5) | (buf[2] & 0b11111000) >> 3;
         dec[3] = ((buf[2] & 0b00000111) << 4) | (buf[3] & 0b11110000) >> 4;
