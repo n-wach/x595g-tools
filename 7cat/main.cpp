@@ -23,10 +23,10 @@ int main(int argc, char** argv) {
             for (int bt = 0; bt < 8; bt++) {
                 bits[of++] = c & 1;
                 c >>= 1;
-                std::cout << bits[of - 1];
+                // std::cout << bits[of - 1];
             }
         }
-        std::cout << std::endl;
+        // std::cout << std::endl;
         
         for (int i = 0; i < processed; i++) {
             dec[i] =
