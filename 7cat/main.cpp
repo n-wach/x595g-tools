@@ -17,14 +17,16 @@ int main(int argc, char** argv) {
         int processed = (read * 8) / 7;
 
         std::bitset<56> bits;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             char c = buf[i];
             int of = i * 8;
             for (int bt = 0; bt < 8; bt++) {
                 bits[of++] = c & 1;
                 c >>= 1;
+                std::cout << bits[of - 1];
             }
         }
+        std::cout << std::endl;
         
         for (int i = 0; i < processed; i++) {
             dec[i] =
