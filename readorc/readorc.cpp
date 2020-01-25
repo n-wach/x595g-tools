@@ -14,7 +14,9 @@ bool readBool() {
   return b == '\x1';
 }
 
-std::string readString()
+std::string readString() {
+  return NULL;
+}
 
 int main() {
   char head1[5];
@@ -30,8 +32,4 @@ int main() {
     int entryPoint = readWord();
     std::cout << "EntryPoint: " << entryPoint << std::endl;
   }
-
-
 }
-
-
