@@ -19,13 +19,21 @@ struct by7e reverse(struct by7e in) {
    return rev;
 }
 
-struct by7e* read7File(char* fn)
+struct read7_result {
+   struct by7e* data;
+   int size;
+};
+
+struct read7_result read7File(char* fn)
 {
    FILE *fp = fopen(fn, "rb");
 
    if (fp == NULL) {
       fprintf(stderr, "cannot open input file\n");
-      return NULL;
+      struct read7_result res;
+      res.size = 0;
+      res.data = NULL;
+      return res;
     }
    fseek(fp, 0, SEEK_END); // seek to end of file
    int size = ftell(fp); // get current file pointer
@@ -61,6 +69,10 @@ struct by7e* read7File(char* fn)
       count++;
    }
 
-   fclose(fp); 
-   return nums;
+   fclose(fp);
+
+   struct read7_result res;
+   res.data = nums;
+   res.size = size;
+   return res;
 }

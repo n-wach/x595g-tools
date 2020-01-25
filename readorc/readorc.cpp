@@ -5,10 +5,11 @@
 
 int POS = 0;
 B7* DATA;
+int DATA_LEN;
 
 // types
 typedef uint8_t B8;
-typedef uint8_t* Text7;
+typedef B8* Text7;
 typedef uint32_t Word28;
 
 void read(Text7 buf, int n) {
@@ -54,7 +55,9 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  DATA = read7File(argv[1]);
+  struct read7_result read_out = read7File(argv[1]);
+  DATA = read_out.data;
+  DATA_LEN = read_out.size;
   
   uint8_t head1[5];
   read(head1, 5);
@@ -122,4 +125,28 @@ int main(int argc, char *argv[]) {
     std::cout << "  Size: " << size << std::endl;
     std::cout << std::endl;
   }
+
+  std::cout << std::endl;
+  Word28 numSegments = readWord();
+  std::cout << "NumSegments: " << numSegments << std::endl;
+  for (size_t i = 0; i < numSegments; i++) {
+    std::string symbol = readString();
+    std::cout << "  Name: " << symbol << std::endl;
+    Word28 offset = readWord();
+    std::cout << "  Offset: " << offset << std::endl;
+    Word28 base = readWord();
+    std::cout << "  Base: " << base << std::endl;
+    B8 perms = readOne();
+    std::cout << "  Permissions: " << std::bitset<8>(perms) << std::endl;
+    Word28 type = readOne();
+    std::cout << "  Type: " << type << std::endl;
+    std::cout << std::endl;
+  }
+
+  // now read contents
+  std::cout << std::endl;
+  int contentSize = DATA_LEN - POS;
+  Text7 contents = new B8[contentSize];
+  read(contents, contentSize);
+  std::cout << "Content: B8[" << contentSize << "]" << std::endl;
 }
