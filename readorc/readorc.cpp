@@ -3,7 +3,7 @@
 int POS = 0;
 
 void read(char* buf, int n) {
-  std::cin.get(&buf[0], n);
+  std::cin.get(buf, n);
   POS += n;
 }
 
@@ -40,6 +40,13 @@ std::string readString() {
 int main() {
   char head1[5];
   read(head1, 5);
+
+  char ORC_o = head1[0];
+  char ORC_r = head1[1];
+  char ORC_c = head1[2];
+
+  std::cout << "hd: " << ORC_o << ORC_r << ORC_c << std::endl;
+  std::cout << (int) head1[4] << std::endl;
 
   char fileType = head1[4];
   std::cout << "FileType: " << ((fileType == '\0') ? "EXE" : "OBJ") << std::endl;
