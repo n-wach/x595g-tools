@@ -1,4 +1,6 @@
 #include <iostream>
+#include <bitset>
+
 #include "ca7_read.h"
 
 int POS = 0;
@@ -13,6 +15,12 @@ void read(Text7 buf, int n) {
   for (int i = 0; i < n; i++) {
     buf[i] = DATA[POS++].val;
   }
+}
+
+B8 readOne() {
+  B8 b;
+  read(&b, 1);
+  return b;
 }
 
 Word28 readWord() {
@@ -103,9 +111,9 @@ int main(int argc, char *argv[]) {
   std::cout << std::endl;
   Word28 numSections = readWord();
   std::cout << "NumSections: " << numSections << std::endl;
-  for (size_t i = 0; i < numReloc; i++) {
-    Word28 section = readWord();
-    std::cout << "  Permissions: " << section << std::endl;
+  for (size_t i = 0; i < numSections; i++) {
+    B8 perms = readOne();
+    std::cout << "  Permissions: " << std::bitset<8>(perms) << std::endl;
     Word28 offset = readWord();
     std::cout << "  Offset: " << offset << std::endl;
     std::string symbol = readString();
