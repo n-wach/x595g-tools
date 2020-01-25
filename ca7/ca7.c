@@ -39,8 +39,6 @@ int main(int argc, char *argv[])
 
    struct by7e nums[size];
 
-   printf("Size: %d \n",size);
-
    int c;
    int extra = 0;
    int place = 1;
@@ -67,8 +65,7 @@ int main(int argc, char *argv[])
       count++;
    }
 
-   fclose(fp);
-   printf("\n");   
+   fclose(fp); 
    return 0;
 }
 
