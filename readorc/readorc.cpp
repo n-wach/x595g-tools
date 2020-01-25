@@ -99,4 +99,19 @@ int main(int argc, char *argv[]) {
     std::cout << "  Plus: " << plus << std::endl;
     std::cout << std::endl;
   }
+
+  std::cout << std::endl;
+  Word28 numSections = readWord();
+  std::cout << "NumSections: " << numSections << std::endl;
+  for (size_t i = 0; i < numReloc; i++) {
+    Word28 section = readWord();
+    std::cout << "  Permissions: " << section << std::endl;
+    Word28 offset = readWord();
+    std::cout << "  Offset: " << offset << std::endl;
+    std::string symbol = readString();
+    std::cout << "  Name: " << symbol << std::endl;
+    Word28 size = readWord();
+    std::cout << "  Size: " << size << std::endl;
+    std::cout << std::endl;
+  }
 }
