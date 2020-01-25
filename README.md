@@ -2,3 +2,4 @@
 
 ## Tool Directory
 + [cat](ca7/)
++ [readorc](readorc/)
