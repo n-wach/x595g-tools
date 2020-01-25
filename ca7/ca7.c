@@ -19,11 +19,14 @@ struct by7e reverse(struct by7e in) {
    return rev;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-   char filename[] = "flag.txt";
+   if(argc < 2){
+    fprintf(stderr, "include file to read");
+    return 1;
+   }
    
-   FILE *fp = fopen(filename, "rb");
+   FILE *fp = fopen(argv[1], "rb");
 
    if (fp == NULL) {
       fprintf(stderr, "cannot open input file\n");
