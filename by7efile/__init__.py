@@ -8,6 +8,9 @@ class By7eFile:
     def print(self):
         print(self.data.decode())
 
+    def write(self, path):
+        with open(path, "wb") as o:
+            o.write(self.data)
 
 def split_by7es(by7es: bytes) -> bytes:
     data = []
