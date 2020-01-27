@@ -1,4 +1,0 @@
-
-# dev
-
-`./readorc.bin <FILE>`
