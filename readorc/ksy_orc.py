@@ -17,6 +17,8 @@ class KsyOrc(KaitaiStruct):
     class Bool(Enum):
         false = 0
         true = 1
+        def __bool__(self):
+            return self == KsyOrc.Bool.true
 
     class SegmentType(Enum):
         note = 1
