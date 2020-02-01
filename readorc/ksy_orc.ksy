@@ -1,5 +1,5 @@
 meta:
-  id: orc
+  id: ksy_orc
   file-extension: orc
   endian: le
 
@@ -47,14 +47,25 @@ seq:
     repeat: eos
 
 types:
+  word28:
+    seq:
+      - id: unpacked
+        type: u4
+    instances:
+      v:
+        value: ((unpacked & (0b11111111 << 0)) << 0) |
+               ((unpacked & (0b11111111 << 8)) >> 1) |
+               ((unpacked & (0b11111111 << 16)) >> 2) |
+               ((unpacked & (0b11111111 << 24)) >> 3)
+
   symbol_table:
     seq:
       - id: num_entries
-        type: u4
+        type: word28
       - id: symbols
         type: symbol
         repeat: expr
-        repeat-expr: num_entries
+        repeat-expr: num_entries.v
   symbol:
     seq:
       - id: name
@@ -65,70 +76,71 @@ types:
         type: u1
         enum: bool
       - id: section
-        type: u4
+        type: word28
         if: is_defined == bool::true
       - id: offset
-        type: u4
+        type: word28
         if: is_defined == bool::true
   relocation_table:
     seq:
       - id: num_entries
-        type: u4
+        type: word28
       - id: relocations
         type: relocation
         repeat: expr
-        repeat-expr: num_entries
+        repeat-expr: num_entries.v
   relocation:
     seq:
       - id: offset
-        type: u4
+        type: word28
       - id: section
-        type: u4
+        type: word28
       - id: symbol
         type: strz
         encoding: ascii
       - id: plus
-        type: u4
+        type: word28
   section_table:
     seq:
       - id: num_entries
-        type: u4
+        type: word28
       - id: sections
         type: section
         repeat: expr
-        repeat-expr: num_entries
+        repeat-expr: num_entries.v
   section:
     seq:
       - id: permissions
         type: u1
       - id: offset
-        type: u4
+        type: word28
       - id: name
         type: strz
         encoding: ascii
       - id: size
-        type: u4
+        type: word28
   segment_table:
     seq:
       - id: num_entries
-        type: u4
+        type: word28
       - id: segments
         type: segment
         repeat: expr
-        repeat-expr: num_entries
+        repeat-expr: num_entries.v
   segment:
     seq:
       - id: name
         type: strz
         encoding: ascii
       - id: offset
-        type: u4
+        type: word28
       - id: base
-        type: u4
+        type: word28
       - id: permissions
-        type: u1
+        type: word28
       - id: type
         type: u1
         enum: segment_type
+
 
 

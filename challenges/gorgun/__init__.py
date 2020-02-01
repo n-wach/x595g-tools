@@ -1,6 +1,9 @@
-from readorc import open_orc
+from readorc import orc
 
-orc = open_orc("chall2.orc")
-print(orc)
+o = orc.Orc("chall2.orc")
+
+print(repr(o))
+
+
 
 

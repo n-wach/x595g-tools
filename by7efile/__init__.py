@@ -12,6 +12,7 @@ class By7eFile:
         with open(path, "wb") as o:
             o.write(self.data)
 
+
 def split_by7es(by7es: bytes) -> bytes:
     data = []
     masks = [
