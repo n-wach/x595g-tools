@@ -59,6 +59,9 @@ class Orc:
                         "type": segment.type.name,
                     } for segment in self.o.segment_table.segments
                 ]
+            },
+            "content": {
+                "length": len(self.o.contents)
             }
         }
 
