@@ -3,5 +3,5 @@ import disassembler
 
 file = by7efile.By7eFile("chall1.exe")
 
-disassembler.disassemble(file.by7es)
+disassembler.disassemble(file.data)
 
