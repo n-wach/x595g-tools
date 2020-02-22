@@ -55,6 +55,7 @@ class Orc:
                         "name": segment.name,
                         "offset": segment.offset.v,
                         "base": segment.base.v,
+                        "size": segment.size.v,
                         "permissions": bin(segment.permissions),
                         "type": segment.type.name,
                     } for segment in self.o.segment_table.segments

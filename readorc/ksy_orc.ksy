@@ -1,5 +1,5 @@
 meta:
-  id: ksy_orc
+  id: orc
   file-extension: orc
   endian: le
 
@@ -26,7 +26,7 @@ seq:
     enum: bool
 
   - id: entry_point
-    type: u1
+    type: u4
     if: has_entry_point == bool::true
 
   - id: symbol_table
@@ -41,7 +41,6 @@ seq:
   - id: segment_table
     type: segment_table
 
-
   - id: contents
     type: u1
     repeat: eos
@@ -53,7 +52,7 @@ types:
         type: u4
     instances:
       v:
-        value: ((unpacked & (0b11111111 << 0)) << 0) |
+        value: ((unpacked & (0b11111111 << 0)) >> 0) |
                ((unpacked & (0b11111111 << 8)) >> 1) |
                ((unpacked & (0b11111111 << 16)) >> 2) |
                ((unpacked & (0b11111111 << 24)) >> 3)
@@ -136,8 +135,10 @@ types:
         type: word28
       - id: base
         type: word28
-      - id: permissions
+      - id: size
         type: word28
+      - id: permissions
+        type: u1
       - id: type
         type: u1
         enum: segment_type

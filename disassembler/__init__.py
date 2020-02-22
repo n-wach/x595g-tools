@@ -1,7 +1,7 @@
 def decode_t1_c(b):
     op = b[0] & 0b00001111
     ds = b[1] & 0b01111000 >> 3
-    cn = b[2] << 21 | b[3] << 14 | b[4] << 7 | b[5] << 0
+    cn = b[5] << 21 | b[4] << 14 | b[3] << 7 | b[2] << 0
     ops = [
         "ADD",
         "SUB",
@@ -16,7 +16,7 @@ def decode_t1_c(b):
         "STB",
         "LOD",
     ]
-    print("{} r{} {}".format(ops[op], ds, cn))
+    print("{} r{} {}({})".format(ops[op], ds, cn, chr(cn)))
 
 
 def decode_t1_r(b):
@@ -87,7 +87,7 @@ def disassemble(stream):
     pos = 0
     while pos < len(stream):
         cur = stream[pos]
-        leading = cur & 0b01110000 >> 4
+        leading = (cur & 0b01110000) >> 4
         if leading == 0b000:
             pos += 1
             print("UNKNOWN")

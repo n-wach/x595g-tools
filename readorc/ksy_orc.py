@@ -17,8 +17,6 @@ class KsyOrc(KaitaiStruct):
     class Bool(Enum):
         false = 0
         true = 1
-        def __bool__(self):
-            return self == KsyOrc.Bool.true
 
     class SegmentType(Enum):
         note = 1
@@ -34,7 +32,7 @@ class KsyOrc(KaitaiStruct):
         self.file_type = self._root.FileType(self._io.read_u1())
         self.has_entry_point = self._root.Bool(self._io.read_u1())
         if self.has_entry_point == self._root.Bool.true:
-            self.entry_point = self._io.read_u1()
+            self.entry_point = self._io.read_u4le()
 
         self.symbol_table = self._root.SymbolTable(self._io, self, self._root)
         self.relocation_table = self._root.RelocationTable(self._io, self, self._root)
@@ -62,7 +60,7 @@ class KsyOrc(KaitaiStruct):
             if hasattr(self, '_m_v'):
                 return self._m_v if hasattr(self, '_m_v') else None
 
-            self._m_v = (((((self.unpacked & (255 << 0)) << 0) | ((self.unpacked & (255 << 8)) >> 1)) | ((self.unpacked & (255 << 16)) >> 2)) | ((self.unpacked & (255 << 24)) >> 3))
+            self._m_v = (((((self.unpacked & (255 << 0)) >> 0) | ((self.unpacked & (255 << 8)) >> 1)) | ((self.unpacked & (255 << 16)) >> 2)) | ((self.unpacked & (255 << 24)) >> 3))
             return self._m_v if hasattr(self, '_m_v') else None
 
 
@@ -91,7 +89,8 @@ class KsyOrc(KaitaiStruct):
             self.name = (self._io.read_bytes_term(0, False, True, True)).decode(u"ascii")
             self.offset = self._root.Word28(self._io, self, self._root)
             self.base = self._root.Word28(self._io, self, self._root)
-            self.permissions = self._root.Word28(self._io, self, self._root)
+            self.size = self._root.Word28(self._io, self, self._root)
+            self.permissions = self._io.read_u1()
             self.type = self._root.SegmentType(self._io.read_u1())
 
 

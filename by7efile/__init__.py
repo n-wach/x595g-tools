@@ -40,11 +40,5 @@ def split_by7es(by7es: bytes) -> bytes:
             # print("".join('{:08b} '.format(b) for b in by7es[0: 7]))
             # print("".join('{:07b}0 '.format(b) for b in data[-8:]))
 
-    return bytes(reverse_bits_arr(data))
-
-
-def reverse_bits_arr(arr):
-    for i in range(len(arr)):
-        arr[i] = int('{:07b}0'.format(arr[i])[::-1], 2)
-    return arr
+    return bytes(data)
 
